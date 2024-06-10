@@ -31,52 +31,7 @@ app.use(session({
 }));
 
 
-// Endpoint to send OTP
-// app.post('/sendOTP', async (req, res) => {
- 
-//     const phoneNumber = req.body.phoneNumber;
-//     console.log(phoneNumber)
-//     // Generate OTP
-//     const otp = otpGenerator.generate(6, { digits: true, alphabets: false, upperCase: false, specialChars: false });
 
-//     try {
-//         // Save OTP to MongoDB
-//         // await OtpModel.findOneAndUpdate({ phoneNumber }, { phoneNumber, otp }, { upsert: true });
-
-//         // Send OTP as SMS using Twilio
-//         await client.messages.create({
-//             body: `Your OTP is: ${otp}`,
-//             from: twilioPhoneNumber,
-//             to: phoneNumber
-//         });
-
-//         res.send('OTP sent successfully');
-//     } catch (error) {
-//         console.error('Error sending OTP:', error);
-//         res.status(500).send('Failed to send OTP');
-//     }
-// });
-
-
-// // Endpoint to verify OTP
-// app.post('/verifyOTP', async (req, res) => {
-//     const { phoneNumber, otp } = req.body;
-
-//     try {
-//         // Retrieve OTP from MongoDB
-//         const savedOtp = await OtpModel.findOne({ phoneNumber });
-
-//         if (!savedOtp || savedOtp.otp !== otp) {
-//             return res.status(400).send('Invalid OTP');
-//         }
-
-//         // OTP verified successfully
-//         res.send('OTP verified successfully');
-//     } catch (error) {
-//         console.error('Error verifying OTP:', error);
-//         res.status(500).send('Failed to verify OTP');
-//     }
-// });
 
 
 const transporter = nodemailer.createTransport({
@@ -84,8 +39,8 @@ const transporter = nodemailer.createTransport({
     port: 587, 
     secure: false,
     auth: {
-      user: 'gajjarnaimish490@gmail.com',
-      pass: 'fzbc omxk unew xcun' 
+      user: "your email id",
+      pass: "Your app password"
     }
   });
   
@@ -107,7 +62,7 @@ const transporter = nodemailer.createTransport({
     const otp = generateOTP();
     storeOTP(email, otp);
     const mailOptions = {
-      from: "gajjarnaimish490@gmail.com",
+      from: "your email id",
       to: email,
       subject: 'Your OTP Code',
       text: `Your OTP code is ${otp}`
@@ -140,7 +95,7 @@ const transporter = nodemailer.createTransport({
 
 async function connection() {
     try {
-        await mongoose.connect('mongodb+srv://Nrgajjar30:Naimish%403009@cluster0.di9i8s8.mongodb.net/')
+        await mongoose.connect('connection string')
         console.log("Connected to Database")
     }
     catch (err) {
